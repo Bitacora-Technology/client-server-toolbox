@@ -1,6 +1,7 @@
 from discord.ext import commands
 from discord import app_commands
 import discord
+import os
 
 from bot import Bot
 
@@ -75,3 +76,40 @@ class Tickets(commands.Cog):
         await interaction.channel.set_permissions(member, view_channel=True)
         content = f'Member <@{member.id}> has been added to the ticket'
         await interaction.response.send_message(content)
+
+    @app_commands.command(name='close')
+    async def close_ticket(self, interaction: discord.Interaction) -> None:
+        """Close the current ticket"""
+        await interaction.response.defer(thinking=True)
+
+        folder_path = f'{os.getcwd()}/tickets/'
+        if os.path.exists(folder_path) is False:
+            os.mkdir(folder_path)
+
+        file_name = f'transcript-{interaction.channel.name}.txt'
+        with open(folder_path + file_name, 'w+') as file_txt:
+            history = interaction.channel.history(
+                limit=None, oldest_first=True
+            )
+            async for message in history:
+                created_at = message.created_at
+                timestamp = f'[{created_at.date()} {created_at.time()}]'
+
+                author = message.author
+                name = f'[{author.name}#{author.discriminator}]'
+
+                content = f'{timestamp} {name} {message.content}'
+                file_txt.write(content)
+
+        with open(folder_path + file_name) as file_txt:
+            members = interaction.channel.members
+            for member in members:
+                try:
+                    await member.send(
+                        file=discord.File(file_txt, file_txt.name)
+                    )
+                except Exception:
+                    pass
+            os.remove(file_txt.name)
+
+        await interaction.channel.delete()
