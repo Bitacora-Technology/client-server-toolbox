@@ -12,7 +12,7 @@ class Owner(commands.Cog):
         self.delay = 10  # Seconds to wait to delete a message
 
     async def cog_check(self, ctx: commands.Context) -> bool:
-        return await self.bot.is_owner(ctx.author)
+        return ctx.author.id == self.bot.owner.id
 
     @commands.command(name='load', hidden=True)
     async def load(self, ctx: commands.Context, extension: str) -> None:
