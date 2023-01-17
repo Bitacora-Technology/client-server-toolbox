@@ -66,3 +66,12 @@ class Tickets(commands.Cog):
         await channel.send(embed=embed, view=view)
         content = f'Panel created at <#{channel.id}>'
         await interaction.response.send_message(content, ephemeral=True)
+
+    @app_commands.command(name='add')
+    async def add_member(
+        self, interaction: discord.Interaction, member: discord.Member
+    ) -> None:
+        """Add a new member to the current ticket"""
+        await interaction.channel.set_permissions(member, view_channel=True)
+        content = f'Member <@{member.id}> has been added to the ticket'
+        await interaction.response.send_message(content)
