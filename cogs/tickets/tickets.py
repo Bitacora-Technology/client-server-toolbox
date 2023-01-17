@@ -7,7 +7,7 @@ from bot import Bot
 
 
 class OpenTicketButton(discord.ui.Button):
-    def __init__(self, bot: Bot) -> None:
+    def __init__(self) -> None:
         super().__init__(emoji='🎯', custom_id='open-ticket')
 
     async def callback(self, interaction: discord.Interaction) -> None:
@@ -41,7 +41,7 @@ class OpenTicketButton(discord.ui.Button):
 class TicketPanelView(discord.ui.View):
     def __init__(self, bot: Bot) -> None:
         super().__init__(timeout=None)
-        self.add_item(OpenTicketButton(bot))
+        self.add_item(OpenTicketButton())
 
 
 @app_commands.guild_only()
