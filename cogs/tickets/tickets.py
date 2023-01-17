@@ -37,7 +37,7 @@ class CloseTicketButton(discord.ui.Button):
             for member in members:
                 try:
                     await member.send(
-                        file=discord.File(file_txt, file_txt.name)
+                        file=discord.File(file_txt, file_name)
                     )
                 except Exception:
                     pass
