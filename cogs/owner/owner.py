@@ -11,8 +11,10 @@ class Owner(commands.Cog):
         self.bot = bot
         self.delay = 10  # Seconds to wait to delete a message
 
+    async def cog_check(self, ctx: commands.Context) -> bool:
+        return await self.bot.is_owner(ctx.author)
+
     @commands.command(name='load', hidden=True)
-    @commands.is_owner()
     async def load(self, ctx: commands.Context, extension: str) -> None:
         """Loads a extension"""
         try:
@@ -32,7 +34,6 @@ class Owner(commands.Cog):
         await ctx.message.delete(delay=self.delay)
 
     @commands.command(name='unload', hidden=True)
-    @commands.is_owner()
     async def unload(self, ctx: commands.Context, extension: str) -> None:
         """Unloads a extension"""
         try:
@@ -52,7 +53,6 @@ class Owner(commands.Cog):
         await ctx.message.delete(delay=self.delay)
 
     @commands.command(name='reload', hidden=True)
-    @commands.is_owner()
     async def reload(self, ctx: commands.Context, extension: str) -> None:
         """Reloads a extension"""
         try:
@@ -72,7 +72,6 @@ class Owner(commands.Cog):
         await ctx.message.delete(delay=self.delay)
 
     @commands.command(name='sync', hidden=True)
-    @commands.is_owner()
     async def sync(self, ctx: commands.Context, target: str) -> None:
         """Syncs the slash commands"""
         if target == 'global':
