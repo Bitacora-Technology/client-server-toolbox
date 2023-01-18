@@ -98,6 +98,10 @@ class Tickets(commands.Cog):
     def __init__(self, bot: Bot) -> None:
         self.bot = bot
 
+    async def cog_load(self) -> None:
+        self.bot.add_view(TicketPanelView())
+        self.bot.add_view(CloseTicketView())
+
     def panel_embed(self) -> discord.Embed:
         description = 'Click the button below to open a new ticket.'
         embed = discord.Embed(
