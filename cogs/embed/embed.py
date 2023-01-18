@@ -26,10 +26,10 @@ class SendEmbedModal(discord.ui.Modal):
             title=self._title.value, description=self.description.value,
             color=self.bot.color
         )
-        await self.channel.send(embed=embed)
         await interaction.response.send_message(
             f'Embed sent at <#{self.channel.id}>', ephemeral=True
         )
+        await self.channel.send(embed=embed)
 
 
 class Embed(commands.Cog):
