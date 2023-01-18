@@ -37,6 +37,7 @@ class Embed(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name='embed')
+    @app_commands.default_permissions(administrator=True)
     async def send_embed(
         self, interaction: discord.Interaction, channel: discord.TextChannel
     ) -> None:
