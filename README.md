@@ -1,3 +1,3 @@
-# Discord Bot Template
+# Client Server Toolbox 
 
-This is the base from which all our projects start. If you want to code a Discord bot using Python, we recommend using this template. Make sure you know how cogs work before starting.
+This is the bot we use at our [client server](https://bitacora.gg/discord). It has a command to send embeds, a listener for new members and a simple ticket system.
