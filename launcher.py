@@ -5,7 +5,11 @@ import contextlib
 
 from bot import Bot
 
+from setproctitle import setproctitle
 from logging.handlers import RotatingFileHandler
+
+
+setproctitle('client-server-toolbox')
 
 
 class RemoveNoise(logging.Filter):
