@@ -85,6 +85,12 @@ class Tickets(commands.Cog):
         """Close the current ticket and send a transcript"""
         await interaction.response.defer(thinking=True)
 
+        ticket_categories = ['Tickets', 'Customers']
+        if interaction.channel.category.name not in ticket_categories:
+            content = 'You can\'t use this command here'
+            await interaction.response.send_message(content, ephemeral=True)
+            return
+
         folder_path = f'{os.getcwd()}/tickets/'
         if os.path.exists(folder_path) is False:
             os.mkdir(folder_path)
