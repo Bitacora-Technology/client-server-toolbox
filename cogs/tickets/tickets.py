@@ -83,12 +83,12 @@ class Tickets(commands.Cog):
     @app_commands.command(name='close')
     async def close_ticket(self, interaction: discord.Interaction) -> None:
         """Close the current ticket and send a transcript"""
-        await interaction.response.defer(thinking=True)
+        await interaction.response.defer(thinking=True, ephemeral=True)
 
         ticket_categories = ['Tickets', 'Customers']
         if interaction.channel.category.name not in ticket_categories:
             content = 'You can\'t use this command here'
-            await interaction.response.send_message(content, ephemeral=True)
+            await interaction.followup.send(content, ephemeral=True)
             return
 
         folder_path = f'{os.getcwd()}/tickets/'
